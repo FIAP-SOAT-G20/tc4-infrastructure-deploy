@@ -25,7 +25,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: tech-challenge-secrets
-                  key: db_dsn
+                  key: db_order_dsn
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:

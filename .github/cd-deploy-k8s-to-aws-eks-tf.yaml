@@ -42,11 +42,11 @@ jobs:
           envsubst < config/configmap.yaml > config/configmap-f.yaml
           envsubst < config/secrets.yaml > config/secrets-f.yaml
         env:
-          DB_DSN: ${{ secrets.DB_DSN }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      
+          DB_ORDER_DSN: ${{ secrets.DB_ORDER_DSN }}
+          DB_ORDER_NAME: ${{ secrets.DB_ORDER_NAME }}
+          DB_ORDER_USER: ${{ secrets.DB_ORDER_USER }}
+          DB_ORDER_PASSWORD: ${{ secrets.DB_ORDER_PASSWORD }}
+
       - name: Kube Apply
         run: |
           kubectl apply -f namespace.yaml
