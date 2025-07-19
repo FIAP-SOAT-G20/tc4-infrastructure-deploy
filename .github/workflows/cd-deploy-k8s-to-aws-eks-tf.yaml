@@ -47,4 +47,5 @@ jobs:
           kubectl apply -f namespace.yaml
           kubectl apply -f config/configmap-f.yaml
           kubectl apply -f config/secrets-f.yaml
-          kubectl apply -f order-service/
+          kubectl apply -f order-service/api/
+          kubectl apply -f order-service/worker/
