@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-order-api
+  name: tech-challenge-order-worker
   namespace: tech-challenge-ns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tech-challenge-order-api
+      app: tech-challenge-order-worker
   template:
     metadata:
       labels:
-        app: tech-challenge-order-api
+        app: tech-challenge-order-worker
     spec:
       containers:
-        - name: tech-challenge-order-api
-          image: ghcr.io/fiap-soat-g20/tc4-order-service-api:latest
-          ports:
-            - containerPort: 8080
+        - name: tech-challenge-order-worker
+          image: ghcr.io/fiap-soat-g20/tc4-order-service-worker-consumer:latest
+          # ports:
+          #   - containerPort: 8081
           env:
             - name: AWS_VPC_K8S_CNI_EXTERNALSNAT
               value: "true"
@@ -38,15 +38,3 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "200m"
-          readinessProbe: # verify that the container is ready to accept traffic
-            httpGet:
-              path: /api/v1/health/readyz
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 30
-          livenessProbe: # verify that the container is running, and restart it if it's not
-            httpGet:
-              path: /api/v1/health/livez
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 30
