@@ -1,15 +1,10 @@
 name: cd/deploy-k8s-to-aws-eks-tf
 
 on:
-  workflow_run:
-    workflows: [cd/create-infra-aws-tf]
-    types:
-      - completed
   workflow_dispatch:
   push:
     branches:
       - main
-      - feat/create-k8s-tf-with-api-gateway
 
 env:
   AWS_REGION: us-east-1
