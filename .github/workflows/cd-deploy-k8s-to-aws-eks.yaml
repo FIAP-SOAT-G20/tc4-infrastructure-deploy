@@ -1,4 +1,4 @@
-name: cd/deploy-k8s-to-aws-eks-tf
+name: cd/deploy-k8s-to-aws-eks
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ env:
 
 jobs:
   deploy-production:
-    name: CD - Deploy K8s to AWS EKS with Terraform
+    name: CD - Deploy K8s to AWS EKS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
