@@ -1,0 +1,67 @@
+name: cd/deploy-k8s-to-aws-eks
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-east-1
+  CLUSTER_NAME: ff-tech-challenge-eks-cluster
+
+jobs:
+  deploy-production:
+    name: CD - Deploy K8s to AWS EKS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Encode secrets to base64
+        id: base64_encode
+        run: |
+          echo "::set-output name=db_order_dns::$(echo -n ${{ secrets.DB_ORDER_DSN }} | base64 -w 0)"
+          echo "::set-output name=db_order_user::$(echo -n ${{ secrets.DB_ORDER_USER }} | base64 -w 0)"
+          echo "::set-output name=db_order_password::$(echo -n ${{ secrets.DB_ORDER_PASSWORD }} | base64 -w 0)"
+          echo "::set-output name=aws_access_key_id::$(echo -n ${{ secrets.AWS_ACCESS_KEY_ID }} | base64 -w 0)"
+          echo "::set-output name=aws_secret_access_key::$(echo -n ${{ secrets.AWS_SECRET_ACCESS_KEY }} | base64 -w 0)"
+          echo "::set-output name=aws_session_token::$(echo -n ${{ secrets.AWS_SESSION_TOKEN }} | base64 -w 0)"
+        shell: bash
+
+      - name: Update Kube Config
+        run: |
+          aws eks update-kubeconfig \
+          --name ${{ env.CLUSTER_NAME }} \
+          --region ${{ env.AWS_REGION }}
+
+      - name: Set Kubernetes envs
+        run: |
+          envsubst < config/configmap.yaml > config/configmap-f.yaml
+          envsubst < config/secrets.yaml > config/secrets-f.yaml
+        env:
+          DB_ORDER_DSN: ${{ steps.base64_encode.outputs.db_order_dns }}
+          DB_ORDER_NAME: ${{ secrets.DB_ORDER_NAME }}
+          DB_ORDER_USER: ${{ steps.base64_encode.outputs.db_order_user }}
+          DB_ORDER_PASSWORD: ${{ steps.base64_encode.outputs.db_order_password }}
+          AWS_ACCESS_KEY_ID: ${{ steps.base64_encode.outputs.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ steps.base64_encode.outputs.aws_secret_access_key }}
+          AWS_SESSION_TOKEN: ${{ steps.base64_encode.outputs.aws_session_token }}
+          AWS_REGION: ${{ env.AWS_REGION }}
+          AWS_SQS_ORDER_QUEUE_NAME: ${{ secrets.AWS_SQS_ORDER_QUEUE_NAME }}
+
+      - name: Kube Apply
+        run: |
+          kubectl apply -f namespace.yaml
+          kubectl apply -f config/configmap-f.yaml
+          kubectl apply -f config/secrets-f.yaml
+          kubectl apply -f order-service/api/
+          kubectl apply -f order-service/worker/
