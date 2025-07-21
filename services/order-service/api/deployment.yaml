@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-api
+  name: tc4-order-service-api
   namespace: tech-challenge-ns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tech-challenge-api
+      app: tc4-order-service-api
   template:
     metadata:
       labels:
-        app: tech-challenge-api
+        app: tc4-order-service-api
     spec:
       containers:
-        - name: tech-challenge-api
-          image: ghcr.io/fiap-soat-g20/fiap-tech-challenge-3-api:latest
+        - name: tc4-order-service-api
+          image: ghcr.io/fiap-soat-g20/tc4-order-service-api:latest
           ports:
             - containerPort: 8080
           env:
@@ -25,27 +25,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: tech-challenge-secrets
-                  key: db_dsn
-            - name: MERCADO_PAGO_URL
+                  key: db_order_dsn
+            - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
                   name: tech-challenge-config
-                  key: mercado_pago_url
-            - name: MERCADO_PAGO_NOTIFICATION_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: mercado_pago_notification_url
-            - name: FAKE_MERCADO_PAGO_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: fake_mercado_pago_url
-            - name: FAKE_MERCADO_PAGO_NOTIFICATION_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: fake_mercado_pago_notification_url
+                  key: jwt_secret
           resources:
             requests:
               memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes

@@ -18,34 +18,17 @@ spec:
           image: ghcr.io/fiap-soat-g20/tc4-customer-service:latest
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: tc4-customer-service-config
           env:
             - name: AWS_VPC_K8S_CNI_EXTERNALSNAT
               value: "true"
             - name: DB_DSN
               valueFrom:
                 secretKeyRef:
-                  name: tech-challenge-secrets
+                  name: tc4-customer-service-secrets
                   key: db_dsn
-            - name: MERCADO_PAGO_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: mercado_pago_url
-            - name: MERCADO_PAGO_NOTIFICATION_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: mercado_pago_notification_url
-            - name: FAKE_MERCADO_PAGO_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: fake_mercado_pago_url
-            - name: FAKE_MERCADO_PAGO_NOTIFICATION_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: fake_mercado_pago_notification_url
           resources:
             requests:
               memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes

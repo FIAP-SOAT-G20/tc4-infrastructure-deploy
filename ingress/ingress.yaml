@@ -2,15 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: api-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1$2
 spec:
   ingressClassName: nginx
   rules:
-  - host: your-app.example.com
+  - host: api.example.com
     http:
       paths:
-      - path: /api/customers(/|$)(.*)
+      - path: /customers(/|$)(.*)
         pathType: Prefix
         backend:
           service:
@@ -18,7 +16,7 @@ spec:
             port:
               number: 80
 
-      - path: /api/orders(/|$)(.*)
+      - path: /orders(/|$)(.*)
         pathType: Prefix
         backend:
           service:
@@ -26,7 +24,7 @@ spec:
             port:
               number: 80
 
-      - path: /api/kitchen(/|$)(.*)
+      - path: /kitchen(/|$)(.*)
         pathType: Prefix
         backend:
           service:
@@ -34,7 +32,7 @@ spec:
             port:
               number: 80
 
-      - path: /api/payment(/|$)(.*)
+      - path: /payments(/|$)(.*)
         pathType: Prefix
         backend:
           service:
