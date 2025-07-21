@@ -69,6 +69,7 @@ jobs:
           JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
           JWT_AUDIENCE: ${{ secrets.JWT_AUDIENCE }}
           JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+          DYNAMODB_ENDPOINT: ${{ secrets.DYNAMODB_ENDPOINT }}
 
       - name: Kube Apply
         run: |
