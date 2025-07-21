@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tc4-kitchen-service
+  namespace: tech-challenge-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tc4-kitchen-service
+  template:
+    metadata:
+      labels:
+        app: tc4-kitchen-service
+    spec:
+      containers:
+        - name: tc4-kitchen-service
+          image: ghcr.io/fiap-soat-g20/tc4-kitchen-service:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: tc4-kitchen-service-config
+          resources:
+            requests:
+              memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes
+              cpu: "100m" # 100 millicores = 0.1 cores, it means 10% of a core
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          readinessProbe: # verify that the container is ready to accept traffic
+            httpGet:
+              path: /api/v1/health/readyz
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          livenessProbe: # verify that the container is running, and restart it if it's not
+            httpGet:
+              path: /api/v1/health/livez
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30

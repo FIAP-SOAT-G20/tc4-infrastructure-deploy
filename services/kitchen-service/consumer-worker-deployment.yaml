@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tc4-kitchen-consumer-worker
+  namespace: tech-challenge-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tc4-kitchen-consumer-worker
+  template:
+    metadata:
+      labels:
+        app: tc4-kitchen-consumer-worker
+    spec:
+      containers:
+        - name: tc4-kitchen-consumer-worker
+          image: ghcr.io/fiap-soat-g20/tc4-kitchen-service-consumer-worker:latest
+          envFrom:
+            - configMapRef:
+                name: tc4-kitchen-service-config
+            - secretRef:
+                name: tc4-kitchen-service-secrets
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m" 

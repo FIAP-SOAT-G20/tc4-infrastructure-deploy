@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tc4-payment-service-config
+  namespace: tech-challenge-ns
+data:
+  db_name: "${DB_NAME}" # "fastfood_10soat_g22_tc3"
+  environment: "tech-challenge"
+  fake_mercado_pago_url: "http://mock-server.tech-challenge-ns.svc.cluster.local:80/mercadopago/instore/orders/qr"
+  fake_mercado_pago_notification_url: "http://tc4-payment-service.tech-challenge-ns.svc.cluster.local:80/api/v1/payments/callback"
+  mercado_pago_url: "http://mock-server.tech-challenge-ns.svc.cluster.local:80/mercadopago/instore/orders/qr"
+  mercado_pago_notification_url: "http://tc4-payment-service.tech-challenge-ns.svc.cluster.local:80/api/v1/payments/callback"
