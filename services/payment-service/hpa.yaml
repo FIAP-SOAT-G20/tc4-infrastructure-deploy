@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: tech-challenge-api
+    name: tc4-payment-service
   minReplicas: 1
   maxReplicas: 10
   metrics:
