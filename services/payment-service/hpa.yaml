@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: tech-challenge-api
+  name: tc4-payment-service
   namespace: tech-challenge-ns
 spec:
   scaleTargetRef:
