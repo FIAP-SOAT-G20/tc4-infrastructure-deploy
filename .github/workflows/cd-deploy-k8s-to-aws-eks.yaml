@@ -45,8 +45,11 @@ jobs:
 
       - name: Set Kubernetes envs
         run: |
-          envsubst < config/configmap.yaml > config/configmap-f.yaml
-          envsubst < config/secrets.yaml > config/secrets-f.yaml
+          envsubst < configs/customer-service-config.yaml > configs/customer-service-config.yaml
+          envsubst < configs/payment-service-config.yaml > configs/payment-service-config.yaml
+          envsubst < configs/kitchen-service-config.yaml > configs/kitchen-service-config.yaml
+          envsubst < configs/order-service-config.yaml > configs/order-service-config.yaml
+          envsubst < configs/secrets.yaml > configs/secrets.yaml
         env:
           DB_ORDER_DSN: ${{ steps.base64_encode.outputs.db_order_dns }}
           DB_ORDER_NAME: ${{ secrets.DB_ORDER_NAME }}
@@ -57,11 +60,25 @@ jobs:
           AWS_SESSION_TOKEN: ${{ steps.base64_encode.outputs.aws_session_token }}
           AWS_REGION: ${{ env.AWS_REGION }}
           AWS_SQS_ORDER_QUEUE_NAME: ${{ secrets.AWS_SQS_ORDER_QUEUE_NAME }}
+          DB_KITCHEN_DSN: ${{ secrets.DB_KITCHEN_DSN }}
+          AWS_SQS_PAYMENT_APPROVED_QUEUE_URL: ${{ secrets.AWS_SQS_PAYMENT_APPROVED_QUEUE_URL }}
+          AWS_SQS_ORDER_STATUS_QUEUE_URL: ${{ secrets.AWS_SQS_ORDER_STATUS_QUEUE_URL }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
+          JWT_AUDIENCE: ${{ secrets.JWT_AUDIENCE }}
+          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+          DYNAMODB_ENDPOINT: ${{ secrets.DYNAMODB_ENDPOINT }}
 
       - name: Kube Apply
         run: |
           kubectl apply -f namespace.yaml
-          kubectl apply -f config/configmap-f.yaml
-          kubectl apply -f config/secrets-f.yaml
-          kubectl apply -f order-service/api/
-          kubectl apply -f order-service/worker/
+          kubectl apply -f configs/
+          kubectl apply -f services/customer-service/
+          kubectl apply -f services/payment-service/
+          kubectl apply -f services/kitchen-service/api/
+          kubectl apply -f services/kitchen-service/worker/
+          kubectl apply -f services/order-service/api/
+          kubectl apply -f services/order-service/worker/
+          kubectl apply -f ingress/ingress.yaml

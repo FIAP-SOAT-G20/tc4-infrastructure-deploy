@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tech-challenge-order-worker
+  name: tc4-customer-service
   namespace: tech-challenge-ns
 spec:
   type: LoadBalancer # To run on cloud, or locally (http://localhost/api/v1/health)
   selector:
-    app: tech-challenge-order-worker
+    app: tc4-customer-service
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8081
-      nodePort: 30002
+      targetPort: 8080
+      nodePort: 30001
   # type: NodePort # To run locally

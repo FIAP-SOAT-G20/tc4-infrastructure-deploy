@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-order-api
+  name: tc4-order-service-api
   namespace: tech-challenge-ns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tech-challenge-order-api
+      app: tc4-order-service-api
   template:
     metadata:
       labels:
-        app: tech-challenge-order-api
+        app: tc4-order-service-api
     spec:
       containers:
-        - name: tech-challenge-order-api
+        - name: tc4-order-service-api
           image: ghcr.io/fiap-soat-g20/tc4-order-service-api:latest
           ports:
             - containerPort: 8080
