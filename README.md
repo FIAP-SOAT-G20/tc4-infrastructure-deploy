@@ -14,10 +14,7 @@
 
 ## 💬 About
 
-Repository for the [FIAP](https://postech.fiap.com.br/) Tech Challenge 4, focused on developing a microservice backend system for managing orders in a fast-food restaurant.
-
-This service is composed of an `API` and a `Worker` that consumes messages from an AWS SQS queue.  
-The API is responsible for handling HTTP requests, while the worker processes messages from the queue, such as order creation and updates.
+Repository for the [FIAP](https://postech.fiap.com.br/) Tech Challenge 4, focused on deploying a microservices architecture using Kubernetes.
 
 ## 🔗 Related Projects
 
@@ -28,18 +25,6 @@ This project is part of a larger system that includes:
 - [Kitchen Service](https://github.com/FIAP-SOAT-G20/tc4-kitchen-service)
 - [Infrastructure - Deploy (k8s)](https://github.com/FIAP-SOAT-G20/tc4-infrastructure-deploy)
 - [Infrastructure -Terraform](https://github.com/FIAP-SOAT-G20/tc4-infrastructure-tf)
-
-
-## 📚 Dictionary - Ubiquitous Language
-
-- Customer (actor): Actor responsible for initiating the purchasing process
-- Cook (actor): Actor responsible for preparing the customer's order
-- Attendant (actor): Actor responsible for interacting with the customer, providing support for the order
-- Identification method: Format in which the customer is identified on the platform: via CPF or anonymous.
-- Identification: Customer identification on the platform
-- Authorization: Grants permission to the customer to perform operations on the platform, such as placing an order, changing registration information
-- Order: Represents all items selected by the customer in the store
-- Order Status: Represents the stage of order preparation after payment is confirmed.
 
 ## 🏗️ Architecture
 
@@ -105,7 +90,7 @@ make k8s-apply
 
 ## :clap: Acknowledgments
 
-- [Kubernete](https://kubernetes.io/)
+- [Kubernetes](https://kubernetes.io/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
