@@ -19,9 +19,9 @@ Repository for the [FIAP](https://postech.fiap.com.br/) Tech Challenge 4, focuse
 This project is part of a larger system that includes:
 
 - [Customer Service](https://github.com/FIAP-SOAT-G20/tc4-customer-service)
+- [Order Service](https://github.com/FIAP-SOAT-G20/tc4-order-service)
 - [Payment Service](https://github.com/FIAP-SOAT-G20/tc4-payment-service)
 - [Kitchen Service](https://github.com/FIAP-SOAT-G20/tc4-kitchen-service)
-- [Infrastructure - Deploy (k8s)](https://github.com/FIAP-SOAT-G20/tc4-infrastructure-deploy)
 - [Infrastructure -Terraform](https://github.com/FIAP-SOAT-G20/tc4-infrastructure-tf)
 
 ## 🏗️ Architecture
