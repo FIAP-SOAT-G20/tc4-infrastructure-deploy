@@ -59,7 +59,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ steps.base64_encode.outputs.aws_secret_access_key }}
           AWS_SESSION_TOKEN: ${{ steps.base64_encode.outputs.aws_session_token }}
           AWS_REGION: ${{ env.AWS_REGION }}
-          AWS_SQS_ORDER_QUEUE_NAME: ${{ secrets.AWS_SQS_ORDER_QUEUE_NAME }}
+          AWS_SQS_ORDER_STATUS_UPDATED_URL: ${{ secrets.AWS_SQS_ORDER_STATUS_UPDATED_URL }}
           DB_KITCHEN_DSN: ${{ secrets.DB_KITCHEN_DSN }}
           AWS_SQS_PAYMENT_APPROVED_QUEUE_URL: ${{ secrets.AWS_SQS_PAYMENT_APPROVED_QUEUE_URL }}
           AWS_SQS_ORDER_STATUS_QUEUE_URL: ${{ secrets.AWS_SQS_ORDER_STATUS_QUEUE_URL }}
