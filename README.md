@@ -1,7 +1,5 @@
 <a name="readme-top"></a>
 
-![GitHub CI - Tests](https://github.com/FIAP-SOAT-G20/fiap-tech-challenge-3-api/actions/workflows/test.yml/badge.svg)
-
 # <p align="center"><b>Fast Food</b> <small>FIAP Tech Challenge 4 - Infrastructure Deploy (k8s)</small></p>
 
 <p align="center">
