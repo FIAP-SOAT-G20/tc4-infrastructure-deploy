@@ -4,6 +4,10 @@ metadata:
   name: tc4-kitchen-service-config
   namespace: tech-challenge-ns
 data:
+  AWS_ACCESS_KEY: "${AWS_ACCESS_KEY_ID}"
+  AWS_SECRET_KEY: "${AWS_SECRET_ACCESS_KEY}"
+  AWS_SESSION_TOKEN: "${AWS_SESSION_TOKEN}"
+  AWS_REGION: "${AWS_REGION}"
   DB_NAME: "${DB_KITCHEN_NAME}" # "fastfood_10soat_g22_tc3"
   ENVIRONMENT: "tech-challenge"
   DB_DSN: "${DB_KITCHEN_DSN}" # "postgres://postgres:postgres@localhost:5432/ff_db_kitchen?sslmode=disable"
