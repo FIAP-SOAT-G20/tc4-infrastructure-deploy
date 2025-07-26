@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tech-challenge-config
+  name: tc4-order-service-config
   namespace: tech-challenge-ns
 data:
   jwt_secret: "my-jwt-secret"

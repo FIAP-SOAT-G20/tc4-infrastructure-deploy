@@ -50,6 +50,21 @@ jobs:
           envsubst < configs/kitchen-service-config.yaml > /tmp/kitchen-service-config.yaml && mv /tmp/kitchen-service-config.yaml configs/kitchen-service-config.yaml
           envsubst < configs/order-service-config.yaml > /tmp/order-service-config.yaml && mv /tmp/order-service-config.yaml configs/order-service-config.yaml
           envsubst < configs/secrets.yaml > /tmp/secrets.yaml && mv /tmp/secrets.yaml configs/secrets.yaml
+        env:
+          DB_ORDER_DSN: ${{ steps.base64_encode.outputs.db_order_dns }}
+          DB_ORDER_NAME: ${{ secrets.DB_ORDER_NAME }}
+          DB_ORDER_USER: ${{ steps.base64_encode.outputs.db_order_user }}
+          DB_ORDER_PASSWORD: ${{ steps.base64_encode.outputs.db_order_password }}
+          AWS_SQS_ORDER_STATUS_UPDATED_URL: ${{ secrets.AWS_SQS_ORDER_STATUS_UPDATED_URL }}
+          DB_KITCHEN_DSN: ${{ secrets.DB_KITCHEN_DSN }}
+          AWS_SQS_PAYMENT_APPROVED_QUEUE_URL: ${{ secrets.AWS_SQS_PAYMENT_APPROVED_QUEUE_URL }}
+          AWS_SQS_ORDER_STATUS_QUEUE_URL: ${{ secrets.AWS_SQS_ORDER_STATUS_QUEUE_URL }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
+          JWT_AUDIENCE: ${{ secrets.JWT_AUDIENCE }}
+          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
 
       - name: Validate Kubernetes manifests
         run: |
@@ -85,6 +100,7 @@ jobs:
 
       - name: Kube Apply
         run: |
+          kubectl apply -f namespace.yaml
           kubectl apply -f configs/customer-service-config.yaml
           kubectl apply -f configs/kitchen-service-config.yaml
           kubectl apply -f configs/order-service-config.yaml
