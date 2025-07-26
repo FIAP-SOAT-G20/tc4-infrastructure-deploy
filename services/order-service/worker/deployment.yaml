@@ -13,6 +13,7 @@ spec:
       labels:
         app: tech-challenge-order-worker
     spec:
+      serviceAccountName: labrole
       containers:
         - name: tech-challenge-order-worker
           image: ghcr.io/fiap-soat-g20/tc4-order-service-worker-consumer:latest
