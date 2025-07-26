@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tech-challenge-api-mock-server
-          image: ghcr.io/fiap-soat-g20/fiap-tech-challenge-3-api-mock-server:latest
+          image: ghcr.io/fiap-soat-g20/tc4-kitchen-service-mock-server:latest
           args: ["--data", "/data/definition.json", "--port", "3001"]
           ports:
             - containerPort: 3001

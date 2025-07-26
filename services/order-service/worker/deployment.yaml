@@ -26,26 +26,6 @@ spec:
                 secretKeyRef:
                   name: tech-challenge-secrets
                   key: db_order_dsn
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: tech-challenge-secrets
-                  key: aws_access_key_id
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: tech-challenge-secrets
-                  key: aws_secret_access_key
-            - name: AWS_SESSION_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: tech-challenge-secrets
-                  key: aws_session_token
-            - name: AWS_REGION
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-config
-                  key: aws_region
             - name: AWS_SQS_ORDER_STATUS_UPDATED_URL
               valueFrom:
                 configMapKeyRef:

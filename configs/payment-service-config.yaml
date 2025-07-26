@@ -6,9 +6,6 @@ metadata:
 data:
   app-name: "tc4-payment-service" # "fastfood_10soat_g22_tc3"
   app-version: "1.0.0"
-  AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-  AWS_REGION: "${AWS_REGION}"
-  AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
   DYNAMODB_ENDPOINT: "${DYNAMODB_ENDPOINT}"
   ENVIRONMENT: "development"
   FLASK_APP: "app"
