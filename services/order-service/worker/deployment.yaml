@@ -1,42 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-order-worker
+  name: tc4-order-consumer-worker
   namespace: tech-challenge-ns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tech-challenge-order-worker
+      app: tc4-order-consumer-worker
   template:
     metadata:
       labels:
-        app: tech-challenge-order-worker
+        app: tc4-order-consumer-worker
     spec:
       serviceAccountName: labrole
       containers:
-        - name: tech-challenge-order-worker
+        - name: tc4-order-consumer-worker
           image: ghcr.io/fiap-soat-g20/tc4-order-service-worker-consumer:latest
           # ports:
           #   - containerPort: 8081
-          env:
-            - name: AWS_VPC_K8S_CNI_EXTERNALSNAT
-              value: "true"
-            - name: DB_DSN
-              valueFrom:
-                secretKeyRef:
-                  name: tech-challenge-secrets
-                  key: db_order_dsn
-            - name: AWS_SQS_ORDER_STATUS_UPDATED_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-order-service-config
-                  key: aws_sqs_order_status_updated_url
-            - name: JWT_SECRET
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-order-service-config
-                  key: jwt_secret
+          envFrom:
+            - configMapRef:
+                name: tc4-order-service-config
           resources:
             requests:
               memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes
