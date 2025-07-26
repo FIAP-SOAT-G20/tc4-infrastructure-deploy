@@ -4,9 +4,9 @@ metadata:
   name: tc4-payment-service-config
   namespace: tech-challenge-ns
 data:
-  app-name: "tc4-payment-service" # "fastfood_10soat_g22_tc3"
+  app-name: "tc4-payment-service"
   app-version: "1.0.0"
-  environment: "development"
+  environment: "production"
   flask_app: "app"
   mercado_pago_url: "http://192.168.0.16:3001/mercadopago/instore/orders/qr"
   fake_mercado_pago_url: "http://mock-server.tech-challenge-ns.svc.cluster.local:80/mercadopago/instore/orders/qr"
