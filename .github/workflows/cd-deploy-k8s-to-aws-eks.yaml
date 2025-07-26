@@ -11,8 +11,7 @@ env:
   CLUSTER_NAME: ff-tech-challenge-eks-cluster
 
 jobs:
-  deploy-production:
-    name: CD - Deploy K8s to AWS EKS
+  kubectl:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
