@@ -107,7 +107,6 @@ jobs:
           kubectl apply -f configs/payment-service-config.yaml
           kubectl apply -f configs/secrets.yaml
           kubectl apply -f configs/metrics.yaml
-          kubectl apply -f security/
           kubectl apply -f services/customer-service/
           kubectl apply -f services/payment-service/
           kubectl apply -f services/kitchen-service/api/
