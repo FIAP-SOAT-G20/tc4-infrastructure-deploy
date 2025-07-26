@@ -4,7 +4,7 @@ metadata:
   name: tc4-kitchen-service-config
   namespace: tech-challenge-ns
 data:
-  DB_NAME: "${DB_NAME}" # "fastfood_10soat_g22_tc3"
+  DB_NAME: "${DB_KITCHEN_NAME}" # "fastfood_10soat_g22_tc3"
   ENVIRONMENT: "tech-challenge"
   DB_DSN: "${DB_KITCHEN_DSN}" # "postgres://postgres:postgres@localhost:5432/ff_db_kitchen?sslmode=disable"
   DB_MAX_OPEN_CONNS: "25"
