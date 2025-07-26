@@ -5,9 +5,9 @@ metadata:
   namespace: tech-challenge-ns
 data:
   jwt_secret: "my-jwt-secret"
-  db_order_name: "${DB_ORDER_NAME}" # "fastfood_10soat_g19_tc4_order"
-  aws_sqs_order_status_updated_url: "${AWS_SQS_ORDER_STATUS_UPDATED_URL}" # "order-status-updated"
-  aws_region: "${AWS_REGION}" # "us-east-1"
+  db_order_name: "fastfood_10soat_g19_tc4_order" # "${DB_ORDER_NAME}" # "fastfood_10soat_g19_tc4_order"
+  aws_sqs_order_status_updated_url: "https://sqs.us-east-1.amazonaws.com/829401394278/order-status-updated" # "${AWS_SQS_ORDER_STATUS_UPDATED_URL}" # "order-status-updated"
+  aws_region: "us-east-1" # "${AWS_REGION}" # "us-east-1"
   environment: "tech-challenge"
   fake_mercado_pago_url: "http://mock-server.tech-challenge-ns.svc.cluster.local:80/mercadopago/instore/orders/qr"
   fake_mercado_pago_notification_url: "http://tech-challenge-api.tech-challenge-ns.svc.cluster.local:80/api/v1/payments/callback"
