@@ -29,12 +29,12 @@ spec:
             - name: AWS_SQS_ORDER_STATUS_UPDATED_URL
               valueFrom:
                 configMapKeyRef:
-                  name: tech-challenge-config
+                  name: tc4-order-service-config
                   key: aws_sqs_order_status_updated_url
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
-                  name: tech-challenge-config
+                  name: tc4-order-service-config
                   key: jwt_secret
           resources:
             requests:
