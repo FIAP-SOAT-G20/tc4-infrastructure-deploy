@@ -13,7 +13,6 @@ spec:
       labels:
         app: tc4-payment-service
     spec:
-      serviceAccountName: labrole
       containers:
         - name: tc4-payment-service
           image: ghcr.io/fiap-soat-g20/tc4-payment-service:latest
