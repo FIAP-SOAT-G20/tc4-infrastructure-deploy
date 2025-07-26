@@ -74,7 +74,12 @@ jobs:
       - name: Kube Apply
         run: |
           kubectl apply -f namespace.yaml
-          kubectl apply -f configs/
+          kubectl apply -f configs/customer-service-config.yaml
+          kubectl apply -f configs/kitchen-service-config.yaml
+          kubectl apply -f configs/order-service-config.yaml
+          kubectl apply -f configs/payment-service-config.yaml
+          kubectl apply -f configs/secrets.yaml
+          kubectl apply -f configs/metrics.yaml
           kubectl apply -f services/customer-service/
           kubectl apply -f services/payment-service/
           kubectl apply -f services/kitchen-service/api/
