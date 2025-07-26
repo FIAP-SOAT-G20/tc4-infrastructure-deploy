@@ -4,8 +4,12 @@ metadata:
   name: tc4-order-service-config
   namespace: tech-challenge-ns
 data:
-  jwt_secret: "my-jwt-secret"
-  db_order_name: "${DB_ORDER_NAME}" # "fastfood_10soat_g19_tc4_order"
-  aws_sqs_order_status_updated_url: "${AWS_SQS_ORDER_STATUS_UPDATED_URL}" # "order-status-updated"
-  aws_region: "${AWS_REGION}" # "us-east-1"
-  environment: "tech-challenge"
+  JWT_SECRET: "my-jwt-secret"
+  DB_ORDER_NAME: "${DB_ORDER_NAME}" # "fastfood_10soat_g19_tc4_order"
+  AWS_SQS_ORDER_STATUS_UPDATED_URL: "${AWS_SQS_ORDER_STATUS_UPDATED_URL}" # "order-status-updated"
+  AWS_REGION: "${AWS_REGION}" # "us-east-1"
+  ENVIRONMENT: "tech-challenge"
+  AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+  AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+  AWS_SESSION_TOKEN: "${AWS_SESSION_TOKEN}"
+  AWS_REGION: "${AWS_REGION}"

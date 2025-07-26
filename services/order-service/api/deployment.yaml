@@ -1,36 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tc4-order-service-api
+  name: tc4-order-service
   namespace: tech-challenge-ns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tc4-order-service-api
+      app: tc4-order-service
   template:
     metadata:
       labels:
-        app: tc4-order-service-api
+        app: tc4-order-service
     spec:
       containers:
-        - name: tc4-order-service-api
+        - name: tc4-order-service
           image: ghcr.io/fiap-soat-g20/tc4-order-service-api:latest
           ports:
             - containerPort: 8080
-          env:
-            - name: AWS_VPC_K8S_CNI_EXTERNALSNAT
-              value: "true"
-            - name: DB_DSN
-              valueFrom:
-                secretKeyRef:
-                  name: tech-challenge-secrets
-                  key: db_order_dsn
-            - name: JWT_SECRET
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-order-service-config
-                  key: jwt_secret
+          envFrom:
+            - configMapRef:
+                name: tc4-order-service-config
           resources:
             requests:
               memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes
