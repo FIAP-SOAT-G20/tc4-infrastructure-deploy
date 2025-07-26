@@ -79,7 +79,6 @@ jobs:
           kubectl apply --dry-run=client -f services/order-service/api/
           kubectl apply --dry-run=client -f services/order-service/worker/
           kubectl apply --dry-run=client -f services/mockserver/
-          kubectl apply --dry-run=client -f security/
           echo "Validating ingress..."
           kubectl apply --dry-run=client -f ingress/ingress.yaml
         env:
