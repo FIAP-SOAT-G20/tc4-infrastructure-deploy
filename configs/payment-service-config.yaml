@@ -6,7 +6,6 @@ metadata:
 data:
   app-name: "tc4-payment-service" # "fastfood_10soat_g22_tc3"
   app-version: "1.0.0"
-  DYNAMODB_ENDPOINT: "${DYNAMODB_ENDPOINT}"
   ENVIRONMENT: "development"
   FLASK_APP: "app"
   MERCADO_PAGO_URL: "http://192.168.0.16:3001/mercadopago/instore/orders/qr"
