@@ -29,7 +29,7 @@ spec:
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
-                  name: tech-challenge-config
+                  name: tc4-order-service-config
                   key: jwt_secret
           resources:
             requests:
