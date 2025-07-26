@@ -19,8 +19,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: tc4-kitchen-service-config
-            - secretRef:
-                name: tc4-kitchen-service-secrets
           resources:
             requests:
               memory: "128Mi"
