@@ -45,20 +45,33 @@ jobs:
 
       - name: Set Kubernetes envs
         run: |
-          envsubst < configs/customer-service-config.yaml > configs/customer-service-config.yaml
-          envsubst < configs/payment-service-config.yaml > configs/payment-service-config.yaml
-          envsubst < configs/kitchen-service-config.yaml > configs/kitchen-service-config.yaml
-          envsubst < configs/order-service-config.yaml > configs/order-service-config.yaml
-          envsubst < configs/secrets.yaml > configs/secrets.yaml
+          envsubst < configs/customer-service-config.yaml > /tmp/customer-service-config.yaml && mv /tmp/customer-service-config.yaml configs/customer-service-config.yaml
+          envsubst < configs/payment-service-config.yaml > /tmp/payment-service-config.yaml && mv /tmp/payment-service-config.yaml configs/payment-service-config.yaml
+          envsubst < configs/kitchen-service-config.yaml > /tmp/kitchen-service-config.yaml && mv /tmp/kitchen-service-config.yaml configs/kitchen-service-config.yaml
+          envsubst < configs/order-service-config.yaml > /tmp/order-service-config.yaml && mv /tmp/order-service-config.yaml configs/order-service-config.yaml
+          envsubst < configs/secrets.yaml > /tmp/secrets.yaml && mv /tmp/secrets.yaml configs/secrets.yaml
+
+      - name: Validate Kubernetes manifests
+        run: |
+          echo "Validating namespace..."
+          kubectl apply --dry-run=client -f namespace.yaml
+          echo "Validating configs..."
+          kubectl apply --dry-run=client -f configs/
+          echo "Validating services..."
+          kubectl apply --dry-run=client -f services/customer-service/
+          kubectl apply --dry-run=client -f services/payment-service/
+          kubectl apply --dry-run=client -f services/kitchen-service/api/
+          kubectl apply --dry-run=client -f services/kitchen-service/worker/
+          kubectl apply --dry-run=client -f services/order-service/api/
+          kubectl apply --dry-run=client -f services/order-service/worker/
+          kubectl apply --dry-run=client -f services/mockserver/
+          echo "Validating ingress..."
+          kubectl apply --dry-run=client -f ingress/ingress.yaml
         env:
           DB_ORDER_DSN: ${{ steps.base64_encode.outputs.db_order_dns }}
           DB_ORDER_NAME: ${{ secrets.DB_ORDER_NAME }}
           DB_ORDER_USER: ${{ steps.base64_encode.outputs.db_order_user }}
           DB_ORDER_PASSWORD: ${{ steps.base64_encode.outputs.db_order_password }}
-          AWS_ACCESS_KEY_ID: ${{ steps.base64_encode.outputs.aws_access_key_id }}
-          AWS_SECRET_ACCESS_KEY: ${{ steps.base64_encode.outputs.aws_secret_access_key }}
-          AWS_SESSION_TOKEN: ${{ steps.base64_encode.outputs.aws_session_token }}
-          AWS_REGION: ${{ env.AWS_REGION }}
           AWS_SQS_ORDER_STATUS_UPDATED_URL: ${{ secrets.AWS_SQS_ORDER_STATUS_UPDATED_URL }}
           DB_KITCHEN_DSN: ${{ secrets.DB_KITCHEN_DSN }}
           AWS_SQS_PAYMENT_APPROVED_QUEUE_URL: ${{ secrets.AWS_SQS_PAYMENT_APPROVED_QUEUE_URL }}
@@ -69,7 +82,6 @@ jobs:
           JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
           JWT_AUDIENCE: ${{ secrets.JWT_AUDIENCE }}
           JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
-          DYNAMODB_ENDPOINT: ${{ secrets.DYNAMODB_ENDPOINT }}
 
       - name: Kube Apply
         run: |
@@ -85,4 +97,5 @@ jobs:
           kubectl apply -f services/kitchen-service/worker/
           kubectl apply -f services/order-service/api/
           kubectl apply -f services/order-service/worker/
+          kubectl apply -f services/mockserver/
           kubectl apply -f ingress/ingress.yaml
