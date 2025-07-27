@@ -21,6 +21,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: tc4-order-service-config
+            - secretRef:
+                name: tech-challenge-secrets
           resources:
             requests:
               memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes
