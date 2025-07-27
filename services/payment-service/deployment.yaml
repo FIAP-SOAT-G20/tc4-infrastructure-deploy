@@ -18,44 +18,9 @@ spec:
           image: ghcr.io/fiap-soat-g20/tc4-payment-service:latest
           ports:
             - containerPort: 80
-          env:
-            - name: AWS_VPC_K8S_CNI_EXTERNALSNAT
-              value: "true"
-            - name: FLASK_APP
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: flask_app
-            - name: ENVIRONMENT
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: environment
-            - name: SECRET_KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: secret_key
-            - name: MERCADO_PAGO_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: mercado_pago_url
-            - name: MERCADO_PAGO_NOTIFICATION_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: mercado_pago_notification_url
-            - name: FAKE_MERCADO_PAGO_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: fake_mercado_pago_url
-            - name: FAKE_MERCADO_PAGO_NOTIFICATION_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tc4-payment-service-config
-                  key: fake_mercado_pago_notification_url
+          envFrom:
+            - configMapRef:
+                name: tc4-payment-service-config
           resources:
             requests:
               memory: "128Mi" # 128 mebibytes = 134,217,728 bytes = 128 * 1024 * 1024 bytes
