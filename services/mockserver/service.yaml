@@ -5,7 +5,7 @@ metadata:
   namespace: tech-challenge-ns
 spec:
   selector:
-    app: tech-challenge-api-mock-server
+    app: tc4-mock-server
   ports:
     - protocol: TCP
       port: 80
