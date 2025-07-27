@@ -10,7 +10,7 @@ data:
   FLASK_APP: "app"
   FAKE_MERCADO_PAGO_URL: "http://mock-server.tech-challenge-ns.svc.cluster.local:80/mercadopago/instore/orders/qr"
   MERCADO_PAGO_URL: "http://mock-server.tech-challenge-ns.svc.cluster.local:80/mercadopago/instore/orders/qr"
-  MERCADO_PAGO_NOTIFICATION_URL: "http://tech-challenge-api.tech-challenge-ns.svc.cluster.local:80/api/v1/payments/callback"
+  MERCADO_PAGO_NOTIFICATION_URL: "http://tc4-payment-service.tech-challenge-ns.svc.cluster.local:80/api/v1/payments/callback"
   SECRET_KEY: "abcdeABCDE123456"
   AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
   AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
