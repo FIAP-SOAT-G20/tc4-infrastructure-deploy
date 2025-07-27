@@ -18,20 +18,40 @@ aws-eks-auth: ## Authenticate with AWS EKS with the 10soat aws profile
 .PHONY: k8s-apply
 k8s-apply: ## Apply Kubernetes manifests
 	@echo  "🟢 Applying Kubernetes manifests..."
-	kubectl apply -f k8s/namespace.yaml
-	kubectl apply -f k8s/mockserver/
-	kubectl apply -f k8s/config/
-	kubectl apply -f k8s/postgres/
-	kubectl apply -f k8s/app/
+	kubectl apply -f namespace.yaml
+	kubectl apply -f configs/customer-service-config.yaml
+	kubectl apply -f configs/kitchen-service-config.yaml
+	kubectl apply -f configs/order-service-config.yaml
+	kubectl apply -f configs/payment-service-config.yaml
+	kubectl apply -f configs/secrets.yaml
+	kubectl apply -f configs/metrics.yaml
+	kubectl apply -f services/customer-service/
+	kubectl apply -f services/payment-service/
+	kubectl apply -f services/kitchen-service/api/
+	kubectl apply -f services/kitchen-service/worker/
+	kubectl apply -f services/order-service/api/
+	kubectl apply -f services/order-service/worker/
+	kubectl apply -f services/mockserver/
+	kubectl apply -f ingress/ingress.yaml
 
 .PHONY: k8s-delete
 k8s-delete: ## Delete Kubernetes resources
 	@echo  "🔴 Deleting Kubernetes resources..."
-	kubectl apply -f k8s/mockserver/
-	kubectl delete -f k8s/app/
-	kubectl delete -f k8s/postgres/
-	kubectl delete -f k8s/config/
-	kubectl delete -f k8s/namespace.yaml
+	kubectl delete -f namespace.yaml
+	kubectl delete -f configs/customer-service-config.yaml
+	kubectl delete -f configs/kitchen-service-config.yaml
+	kubectl delete -f configs/order-service-config.yaml
+	kubectl delete -f configs/payment-service-config.yaml
+	kubectl delete -f configs/secrets.yaml
+	kubectl delete -f configs/metrics.yaml
+	kubectl delete -f services/customer-service/
+	kubectl delete -f services/payment-service/
+	kubectl delete -f services/kitchen-service/api/
+	kubectl delete -f services/kitchen-service/worker/
+	kubectl delete -f services/order-service/api/
+	kubectl delete -f services/order-service/worker/
+	kubectl delete -f services/mockserver/
+	kubectl delete -f ingress/ingress.yaml
 
 .PHONY: k8s-logs
 k8s-logs: ## Show application logs
